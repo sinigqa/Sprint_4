@@ -20,7 +20,7 @@ public class OrderTest {
 
     private final String testName;
     private final String browser;
-    private final String buttonLocation; // top / bottom
+    private final String buttonLocation; 
 
     private final String name;
     private final String surname;
@@ -79,14 +79,14 @@ public class OrderTest {
     public void testOrderFlow() {
         System.out.println("Выполняем тест: " + testName);
 
-        // Нажимаем на нужную кнопку "Заказать"
+        
         if ("top".equals(buttonLocation)) {
             orderPage.clickTopOrderButton();
         } else {
             orderPage.clickBottomOrderButton();
         }
 
-        // Первая часть формы
+        
         orderPage.setName(name);
         orderPage.setSurname(surname);
         orderPage.setAddress(address);
@@ -94,9 +94,9 @@ public class OrderTest {
         orderPage.setPhone(phone);
         orderPage.clickNextButton();
 
-        // Вторая часть формы
-        orderPage.setDate(deliveryDate); // ← здесь нажимается Enter
-        orderPage.selectRentalPeriod(rentalPeriod); // или "сутки"
+        
+        orderPage.setDate(deliveryDate); 
+        orderPage.selectRentalPeriod(rentalPeriod); 
 
         if ("black".equals(color)) {
             orderPage.selectBlackColor();
@@ -104,11 +104,11 @@ public class OrderTest {
             orderPage.selectGreyColor();
         }
         orderPage.clickBottomOrderButton();
-        // Подтверждение заказа
+        
         orderPage.confirmOrder();
 
 
-        // Проверка результата
+        
         assertTrue("Не отобразилось сообщение об успешном заказе", orderPage.isSuccessMessageDisplayed());
 
         System.out.println("Заказ успешно оформлен: " + testName);
