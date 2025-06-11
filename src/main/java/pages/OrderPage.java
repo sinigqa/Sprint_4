@@ -99,7 +99,7 @@ public class OrderPage {
     public void setDate(String date) {
         WebElement dateInput = wait.until(ExpectedConditions.visibilityOfElementLocated(dateField));
         dateInput.sendKeys(date);
-        dateInput.sendKeys(Keys.ENTER); // ← Закрытие календаря
+        dateInput.sendKeys(Keys.ENTER); // Закрытие календаря
     }
 
     public void selectRentalPeriod(String period) {
