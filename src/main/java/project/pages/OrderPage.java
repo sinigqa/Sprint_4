@@ -29,7 +29,8 @@ public class OrderPage {
 
 
     private final By topOrderButton = By.cssSelector("button.Button_Button__ra12g");
-    private final By bottomOrderButton = By.xpath("(//button[text()='Заказать'])[last()]");
+    private final By bottomOrderButton = By.xpath("(//button[contains(@class, 'Button_Button__ra12g') and text()='Заказать'])");
+    private final By finalOrderButton = By.xpath("(//button[text()='Заказать'])[last()]");
 
 
 
@@ -52,8 +53,10 @@ public class OrderPage {
 
 
 
+
     private final By confirmYesButton = By.xpath("//button[text()='Да']");
     private final By successMessage = By.xpath("//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
+
 
 
     public void closeCookieBannerIfPresent() {
@@ -96,6 +99,10 @@ public class OrderPage {
 
     public void clickNextButton() {
         wait.until(ExpectedConditions.elementToBeClickable(nextButton)).click();
+    }
+
+    public void clickFinalOrderButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(finalOrderButton)).click();
     }
 
     public void setDate(String date) {

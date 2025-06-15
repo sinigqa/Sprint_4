@@ -94,7 +94,7 @@ public class OrderTest {
         } else {
             orderPage.selectGreyColor();
         }
-        orderPage.clickBottomOrderButton();
+        orderPage.clickFinalOrderButton();
         
         orderPage.confirmOrder();
 
