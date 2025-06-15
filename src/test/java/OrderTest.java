@@ -108,8 +108,7 @@ public class OrderTest {
         orderPage.confirmOrder();
 
 
-        
-        assertTrue(orderPage.isSuccessMessageDisplayed());
+        assertTrue("Отсутствует окно подтверждения заказа", orderPage.isSuccessMessageDisplayed());
 
     }
 

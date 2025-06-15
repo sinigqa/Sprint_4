@@ -32,6 +32,7 @@ public class OrderPage {
     private final By bottomOrderButton = By.xpath("(//button[text()='Заказать'])[last()]");
 
 
+
     private final By cookieBanner = By.id("rcc-confirm-button");
 
 
@@ -129,7 +130,12 @@ public class OrderPage {
     }
 
     public boolean isSuccessMessageDisplayed() {
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage)).isDisplayed();
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage));
+            return true;
+        } catch (org.openqa.selenium.TimeoutException e) {
+            return false;
+        }
 
     }
 }
