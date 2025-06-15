@@ -79,9 +79,7 @@ public class OrderTest {
 
     @Test
     public void testOrderFlow() {
-        System.out.println("Выполняем тест: " + testName);
 
-        
         if ("top".equals(buttonLocation)) {
             orderPage.clickTopOrderButton();
         } else {
@@ -113,7 +111,6 @@ public class OrderTest {
         
         assertTrue("Не отобразилось сообщение об успешном заказе", orderPage.isSuccessMessageDisplayed());
 
-        System.out.println("Заказ успешно оформлен: " + testName);
     }
 
     @After
