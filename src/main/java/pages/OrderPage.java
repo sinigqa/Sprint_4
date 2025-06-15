@@ -129,10 +129,7 @@ public class OrderPage {
     }
 
     public boolean isSuccessMessageDisplayed() {
-        try {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage)).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+
     }
 }

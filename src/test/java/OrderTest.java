@@ -109,7 +109,7 @@ public class OrderTest {
 
 
         
-        assertTrue("Не отобразилось сообщение об успешном заказе", orderPage.isSuccessMessageDisplayed());
+        assertTrue(orderPage.isSuccessMessageDisplayed());
 
     }
 
