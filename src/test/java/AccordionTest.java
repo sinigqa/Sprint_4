@@ -1,13 +1,11 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import pages.MainPage;
+import project.pages.MainPage;
+import project.BaseClass;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -72,16 +70,9 @@ public class AccordionTest {
 
     @Before
     public void setUp() {
-        if ("chrome".equalsIgnoreCase(browser)) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-        } else if ("firefox".equalsIgnoreCase(browser)) {
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-        }
-
+        driver = BaseClass.getDriver(browser);
         mainPage = new MainPage(driver);
-        mainPage.open();
+        BaseClass.openMainPage(driver);
     }
 
     @Test

@@ -1,4 +1,4 @@
-package pages;
+package project.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -55,10 +55,6 @@ public class OrderPage {
     private final By confirmYesButton = By.xpath("//button[text()='Да']");
     private final By successMessage = By.xpath("//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
 
-
-    public void open() {
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-    }
 
     public void closeCookieBannerIfPresent() {
         WebElement banner = driver.findElement(cookieBanner);
