@@ -1,6 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,7 @@ import pages.MainPage;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
@@ -22,33 +22,51 @@ public class AccordionTest {
     private MainPage mainPage;
 
     private final String browser;
-    private final int questionIndex;
+    private final String questionText;
+    private final String expectedAnswer;
 
-    public AccordionTest(String browser, int questionIndex) {
+    public AccordionTest(String browser, String questionText, String expectedAnswer) {
         this.browser = browser;
-        this.questionIndex = questionIndex;
+        this.questionText = questionText;
+        this.expectedAnswer = expectedAnswer;
     }
 
-    @Parameterized.Parameters(name = "{index}: browser={0}, вопрос={1}")
+    @Parameterized.Parameters(name = "Вопрос: {0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"chrome", 0},
-                {"chrome", 1},
-                {"chrome", 2},
-                {"chrome", 3},
-                {"chrome", 4},
-                {"chrome", 5},
-                {"chrome", 6},
-                {"chrome", 7},
+                {"chrome", "Сколько это стоит? И как оплатить?",
+                        "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
+                {"chrome", "Хочу сразу несколько самокатов! Так можно?",
+                        "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
+                {"chrome", "Как рассчитывается время аренды?",
+                        "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
+                {"chrome", "Можно ли заказать самокат прямо на сегодня?",
+                        "Только начиная с завтрашнего дня. Но скоро станем расторопнее."},
+                {"chrome", "Можно ли продлить заказ или вернуть самокат раньше?",
+                        "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."},
+                {"chrome", "Вы привозите зарядку вместе с самокатом?",
+                        "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
+                {"chrome", "Можно ли отменить заказ?",
+                        "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
+                {"chrome", "Я жизу за МКАДом, привезёте?",
+                        "Да, обязательно. Всем самокатов! И Москве, и Московской области."},
 
-                {"firefox", 0},
-                {"firefox", 1},
-                {"firefox", 2},
-                {"firefox", 3},
-                {"firefox", 4},
-                {"firefox", 5},
-                {"firefox", 6},
-                {"firefox", 7}
+                {"firefox", "Сколько это стоит? И как оплатить?",
+                        "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
+                {"firefox", "Хочу сразу несколько самокатов! Так можно?",
+                        "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
+                {"firefox", "Как рассчитывается время аренды?",
+                        "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
+                {"firefox", "Можно ли заказать самокат прямо на сегодня?",
+                        "Только начиная с завтрашнего дня. Но скоро станем расторопнее."},
+                {"firefox", "Можно ли продлить заказ или вернуть самокат раньше?",
+                        "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."},
+                {"firefox", "Вы привозите зарядку вместе с самокатом?",
+                        "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
+                {"firefox", "Можно ли отменить заказ?",
+                        "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
+                {"firefox", "Я жизу за МКАДом, привезёте?",
+                        "Да, обязательно. Всем самокатов! И Москве, и Московской области."}
         });
     }
 
@@ -67,20 +85,12 @@ public class AccordionTest {
     }
 
     @Test
-    public void testEachQuestionDisplaysTextAfterClick() {
-        System.out.println("Проверяем вопрос " + (questionIndex + 1) + " в браузере: " + browser);
+    public void testAccordionDisplaysCorrectAnswer() {
+        mainPage.clickOnQuestionByText(questionText);
 
-        mainPage.clickOnQuestion(questionIndex);
+        String actualAnswer = mainPage.getAnswerByText(questionText);
 
-        String answerText = mainPage.getAnswerText(questionIndex);
-
-        if (answerText.trim().isEmpty()) {
-            System.err.println("Ошибка: Вопрос " + (questionIndex + 1) + " не содержит текста!");
-        } else {
-            System.out.println("Вопрос " + (questionIndex + 1) + ": текст найден — '" + answerText.trim() + "'");
-        }
-
-        Assert.assertFalse("Вопрос " + (questionIndex + 1) + " не содержит текста", answerText.trim().isEmpty());
+        assertEquals(questionText, expectedAnswer, actualAnswer);
     }
 
     @After
