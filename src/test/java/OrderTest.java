@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import project.pages.MainPage;
 import project.pages.OrderPage;
 import project.BaseClass;
 
@@ -17,6 +18,7 @@ public class OrderTest {
 
     private WebDriver driver;
     private OrderPage orderPage;
+    private MainPage mainPage;
 
     private final String testName;
     private final String browser;
@@ -64,6 +66,7 @@ public class OrderTest {
     public void setUp() {
         driver = BaseClass.getDriver(browser);
         orderPage = new OrderPage(driver);
+        mainPage = new MainPage(driver);
         BaseClass.openMainPage(driver);
         orderPage.closeCookieBannerIfPresent();
     }
@@ -72,9 +75,9 @@ public class OrderTest {
     public void testOrderFlow() {
 
         if ("top".equals(buttonLocation)) {
-            orderPage.clickTopOrderButton();
+            mainPage.clickTopOrderButton();
         } else {
-            orderPage.clickBottomOrderButton();
+            mainPage.clickBottomOrderButton();
         }
 
         

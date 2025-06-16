@@ -28,8 +28,7 @@ public class OrderPage {
     private final By phoneField = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
 
 
-    private final By topOrderButton = By.cssSelector("button.Button_Button__ra12g");
-    private final By bottomOrderButton = By.xpath("(//button[contains(@class, 'Button_Button__ra12g') and text()='Заказать'])");
+
     private final By finalOrderButton = By.xpath("(//button[text()='Заказать'])[last()]");
 
 
@@ -88,14 +87,6 @@ public class OrderPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(phoneField)).sendKeys(phone);
     }
 
-    public void clickTopOrderButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(topOrderButton)).click();
-    }
-
-    public void clickBottomOrderButton() {
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(bottomOrderButton));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
-    }
 
     public void clickNextButton() {
         wait.until(ExpectedConditions.elementToBeClickable(nextButton)).click();

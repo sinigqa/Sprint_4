@@ -22,6 +22,18 @@ public class MainPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    private final By topOrderButton = By.cssSelector("button.Button_Button__ra12g");
+    private final By bottomOrderButton = By.xpath("(//button[contains(@class, 'Button_Button__ra12g') and text()='Заказать'])");
+
+    public void clickTopOrderButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(topOrderButton)).click();
+    }
+
+    public void clickBottomOrderButton() {
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(bottomOrderButton));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+    }
+
     private WebElement findQuestionElementByText(String questionText) {
         List<WebElement> questions = driver.findElements(By.className("accordion__button"));
 
